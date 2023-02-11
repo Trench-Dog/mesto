@@ -1,0 +1,10 @@
+.place__button {
+    width: 23px;
+    height: 19px;
+    background-image: url(../../../images/place-button.svg);
+    background-color: #fff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    margin: 25px 1px 0 auto;
+}

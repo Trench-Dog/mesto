@@ -1,0 +1,7 @@
+.place__description {
+    max-width: 246px;
+    margin: 0 auto 26px auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}

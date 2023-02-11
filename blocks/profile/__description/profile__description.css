@@ -1,0 +1,9 @@
+.profile__description {
+    grid-area: description;
+    margin: 0 0 12px 0;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.21;
+    color: #fff;
+}
