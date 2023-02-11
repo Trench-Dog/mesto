@@ -7,3 +7,9 @@
     margin-left: 30px;
     padding: 0;
 }
+@media screen and (max-width: 500px) {
+    .profile__info {
+        margin-left: 5px;
+        column-gap: 10px;
+    }
+}
