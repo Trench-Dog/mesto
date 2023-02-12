@@ -1,5 +1,5 @@
 .places {
-    margin: 51px auto 68px;
+    margin: 51px 0 68px 0;
     padding: 0;
     width: 100%;
     display: grid;
@@ -7,4 +7,23 @@
     row-gap: 20px;
     column-gap: 17px;
     list-style-type: none;
+    outline: 1px solid red;
+}
+@media screen and (max-width: 900px) {
+    .places {
+        column-gap: 10px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .places {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 425px) {
+    .places {
+        grid-template-columns: 100%;
+        justify-items: center;
+        margin-top: 36px;
+        margin-bottom: 49px;
+    }
 }

@@ -3,10 +3,12 @@
     max-height: 120px;
     display: flex;
     flex-direction: row;
+    outline: 1px solid red;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .profile {
         flex-direction: column;
         align-items: center;
+        max-height: 350px;
     }
 }
