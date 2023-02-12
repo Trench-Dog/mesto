@@ -1,0 +1,10 @@
+.popup {
+    /* display: none; */
+    max-width: 430px;
+    position: relative;
+    z-index: 2;
+    margin: 0 auto 0 auto;
+    min-height: 330px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}

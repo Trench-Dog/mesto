@@ -6,7 +6,6 @@
     column-gap: 18px;
     margin-left: 30px;
     padding: 0;
-    outline: 1px solid red;
 }
 @media screen and (max-width: 600px) {
     .profile__info {
