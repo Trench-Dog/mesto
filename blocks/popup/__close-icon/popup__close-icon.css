@@ -1,6 +1,9 @@
 .popup__close-icon {
     max-width: 32px;
     max-height: 32px;
+    position: relative;
+    bottom: 333px;
+    left: 438px;
     transition: opacity 0.5s ease 0.1s;
 }
 .popup__close-icon:hover {

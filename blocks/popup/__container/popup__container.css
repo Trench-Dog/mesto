@@ -1,6 +1,8 @@
 .popup__container {
     width: 100%;
     background-color: #fff;
-    height: 100%;
+    min-height: 100%;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
