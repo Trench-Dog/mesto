@@ -6,3 +6,9 @@
     color: #000;
     margin: 34px 64px 41px 36px;
 }
+@media screen and (max-width: 600px) {
+    .popup__heading {
+        font-size: 18px;
+        margin: 26px 22px 67px 22px;
+    }
+}

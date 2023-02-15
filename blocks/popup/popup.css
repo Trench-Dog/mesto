@@ -1,10 +1,11 @@
 .popup {
-    /* display: none; */
-    max-width: 430px;
-    position: relative;
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 2;
-    margin: 0 auto 0 auto;
-    min-height: 330px;
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5);
 }

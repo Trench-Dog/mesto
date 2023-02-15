@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./pages/index.css" />
         <title>Место: Россия</title>
+        <script src="./scripts/index.js" defer></script>
     </head>
     <body class="page">
         <header class="header">
@@ -29,19 +30,19 @@
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
-            <div class="popup popup_opened">
+            <section class="popup">
                 <form class="popup__container" name="popup-form">
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <input type="text" class="popup__data popup__data_type_name" />
                     <input type="text" class="popup__data popup__data_type_description" />
-                    <button class="popup__save-button">Сохранить</button>
+                    <button class="popup__save-button" type="submit">Сохранить</button>
                     <img
                         class="popup__close-icon"
                         src="./images/popup-close-icon.svg"
                         alt="Иконка для закрытия всплывающего окна"
                     />
                 </form>
-            </div>
+            </section>
             <ul class="places">
                 <li class="place">
                     <img
