@@ -10,21 +10,24 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 450px;
+    max-width: 400px;
 }
 @media screen and (max-width: 900px) {
     .profile__name {
         font-size: 33px;
+        max-width: 350px;
     }
 }
 @media screen and (max-width: 768px) {
     .profile__name {
         font-size: 30px;
+        max-width: 250px;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
     .profile__name {
         font-size: 27px;
         line-height: 1.21;
+        max-width: 200px;
     }
 }

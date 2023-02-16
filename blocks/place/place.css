@@ -9,12 +9,11 @@
 @media screen and (max-width: 768px) and (min-width: 426px) {
     .place {
         max-width: 320px;
-        min-height: 400px;
+        min-height: 361px;
     }
 }
 @media screen and (max-width: 425px) {
     .place {
         width: 100%;
-        min-height: 361px;
     }
 }
