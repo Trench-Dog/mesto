@@ -5,6 +5,7 @@
     background: black url(../../../images/profile-add-image.svg) no-repeat center / auto;
     transition: opacity 0.5s ease 0.1s;
     border: 2px solid white;
+    cursor: pointer;
 }
 .profile__add-button:hover {
     opacity: 0.6;

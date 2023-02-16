@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./pages/index.css" />
         <title>Место: Россия</title>
-        <script src="./scripts/index.js" defer></script>
+        <!-- <script src="./scripts/index.js" defer></script> -->
     </head>
     <body class="page">
         <header class="header">
@@ -14,7 +14,6 @@
                 src="./images/header-logo.svg"
                 alt="Логотип с надписью Место Россия"
             />
-            <div class="header__line"></div>
         </header>
         <main class="content">
             <section class="profile">
@@ -29,19 +28,25 @@
                     <button class="profile__edit-button" type="button"></button>
                 </div>
                 <button class="profile__add-button" type="button"></button>
-            </section>
-            <section class="popup">
-                <form class="popup__container" name="popup-form">
-                    <h2 class="popup__heading">Редактировать профиль</h2>
-                    <input type="text" class="popup__data popup__data_type_name" />
-                    <input type="text" class="popup__data popup__data_type_description" />
-                    <button class="popup__save-button" type="submit">Сохранить</button>
-                    <img
-                        class="popup__close-icon"
-                        src="./images/popup-close-icon.svg"
-                        alt="Иконка для закрытия всплывающего окна"
-                    />
-                </form>
+                <div class="popup popup_opened">
+                    <div class="popup__container">
+                        <form class="popup__form" name="popup-form">
+                            <h2 class="popup__heading">Редактировать профиль</h2>
+                            <input
+                                type="text"
+                                class="popup__data popup__data_type_name"
+                                name="name-data"
+                            />
+                            <input
+                                type="text"
+                                class="popup__data popup__data_type_description"
+                                name="description-data"
+                            />
+                            <button class="popup__save-button" type="submit">Сохранить</button>
+                        </form>
+                        <button class="popup__close-button" type="button"></button>
+                    </div>
+                </div>
             </section>
             <ul class="places">
                 <li class="place">
@@ -113,7 +118,7 @@
             </ul>
         </main>
         <footer class="footer">
-            <h2 class="footer__copyright">© 2023 Mesto Russia</h2>
+            <p class="footer__copyright">© 2023 Mesto Russia</p>
         </footer>
     </body>
 </html>
