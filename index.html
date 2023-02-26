@@ -29,74 +29,17 @@
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
-            <ul class="places">
+            <ul class="places"></ul>
+            <template id="placeTemplate">
                 <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-ivolginskiy-datsan.jpg"
-                        alt="Фото Иволгинского дацана"
-                    />
+                    <img class="place__image" />
                     <div class="place__description">
-                        <h2 class="place__title">Иволгинский дацан</h2>
+                        <h2 class="place__title"></h2>
                         <button class="place__button" type="button"></button>
                     </div>
+                    <button class="place__delete-button" type="button"></button>
                 </li>
-                <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-dolina-geyzerov.jpg"
-                        alt="Фото Долины гейзеров"
-                    />
-                    <div class="place__description">
-                        <h2 class="place__title">Долина гейзеров</h2>
-                        <button class="place__button" type="button"></button>
-                    </div>
-                </li>
-                <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-kungurskaya-peshera.jpg"
-                        alt="Фото Кунгурской пещеры"
-                    />
-                    <div class="place__description">
-                        <h2 class="place__title">Кунгурская пещера</h2>
-                        <button class="place__button" type="button"></button>
-                    </div>
-                </li>
-                <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-lenskie-stolby.jpg"
-                        alt="Фото Ленских столбов"
-                    />
-                    <div class="place__description">
-                        <h2 class="place__title">Ленские столбы</h2>
-                        <button class="place__button" type="button"></button>
-                    </div>
-                </li>
-                <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-ozero-elton.jpg"
-                        alt="Фото озера Эльтон"
-                    />
-                    <div class="place__description">
-                        <h2 class="place__title">Озеро Эльтон</h2>
-                        <button class="place__button" type="button"></button>
-                    </div>
-                </li>
-                <li class="place">
-                    <img
-                        class="place__image"
-                        src="./images/place-skala-parus.jpg"
-                        alt="Фото скалы Парус"
-                    />
-                    <div class="place__description">
-                        <h2 class="place__title">Скала "Парус"</h2>
-                        <button class="place__button" type="button"></button>
-                    </div>
-                </li>
-            </ul>
+            </template>
         </main>
         <div class="popup">
             <div class="popup__container">
@@ -111,6 +54,27 @@
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
                 <button class="popup__close-button" type="button"></button>
+            </div>
+        </div>
+        <div class="popup-add">
+            <div class="popup-add__container">
+                <form class="popup-add__form" name="popup-add-form">
+                    <h2 class="popup-add__heading">Новое место</h2>
+                    <input
+                        type="text"
+                        class="popup-add__data popup-add__data_type_place"
+                        name="place-data"
+                        placeholder="Название"
+                    />
+                    <input
+                        type="text"
+                        class="popup-add__data popup-add__data_type_link"
+                        name="link"
+                        placeholder="Ссылка на картинку"
+                    />
+                    <button class="popup-add__create-button" type="submit">Создать</button>
+                </form>
+                <button class="popup-add__close-button" type="button"></button>
             </div>
         </div>
         <footer class="footer">

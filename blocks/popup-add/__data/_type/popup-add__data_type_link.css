@@ -1,0 +1,8 @@
+.popup-add__data_type_link {
+    margin-bottom: 48px;
+}
+@media screen and (max-width: 600px) {
+    .popup-add__data_type_link {
+        margin-bottom: 45px;
+    }
+}
