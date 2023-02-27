@@ -127,7 +127,13 @@ function putLike(evt) {
 
 function openImagePopup(evt) {
     const popupImage = evt.target;
+    const popupImageContainer = popupImage.closest('.place');
+    const popupTitle = popupImageContainer.querySelector('.place__title');
     imagePopup.classList.add('picture-popup_opened');
+    const fullImage = imagePopup.querySelector('.picture-popup__image');
+    fullImage.setAttribute('src', popupImage.getAttribute('src'));
+    const fullImageTitle = imagePopup.querySelector('.picture-popup__title');
+    fullImageTitle.textContent = popupTitle.textContent;
 }
 
 function closeImagePopup() {
