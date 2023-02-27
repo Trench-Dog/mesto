@@ -41,8 +41,10 @@ let userName = document.querySelector('.profile__name');
 let userDescription = document.querySelector('.profile__description');
 const addCardPopup = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
+const imagePopup = document.querySelector('.picture-popup');
 const closeAddPopupButton = document.querySelector('.popup-add__close-button');
 const createCardButton = document.querySelector('.popup-add__create-button');
+const closeImageButton = document.querySelector('.picture-popup__close-button');
 const places = document.querySelector('.places');
 let placeNameInput = document.querySelector('.popup-add__data_type_place');
 let placeLinkInput = document.querySelector('.popup-add__data_type_link');
@@ -54,6 +56,7 @@ closeButton.addEventListener('click', closePopup);
 addButton.addEventListener('click', openAddPopup);
 closeAddPopupButton.addEventListener('click', closeAddPopup);
 createCardButton.addEventListener('click', createNewCard);
+closeImageButton.addEventListener('click', closeImagePopup);
 
 function createCard(card) {
     const placeCard = document.querySelector('#placeTemplate').content.cloneNode(true);
@@ -64,6 +67,7 @@ function createCard(card) {
     placeImage.setAttribute('alt', card.alt);
     const likeButton = placeCard.querySelector('.place__button');
     likeButton.addEventListener('click', putLike);
+    placeImage.addEventListener('click', openImagePopup);
     const deleteButton = placeCard.querySelector('.place__delete-button');
     deleteButton.addEventListener('click', deleteCard);
     places.append(placeCard);
@@ -101,6 +105,7 @@ function createNewCard(evt) {
     const newCardImage = newCard.querySelector('.place__image');
     newCardTitle.textContent = placeNameInput.value;
     newCardImage.setAttribute('src', placeLinkInput.value);
+    newCardImage.addEventListener('click', openImagePopup);
     const likeButton = newCard.querySelector('.place__button');
     likeButton.addEventListener('click', putLike);
     const deleteButton = newCard.querySelector('.place__delete-button');
@@ -118,4 +123,13 @@ function deleteCard(evt) {
 function putLike(evt) {
     const button = evt.target;
     button.classList.toggle('place__button_active');
+}
+
+function openImagePopup(evt) {
+    const popupImage = evt.target;
+    imagePopup.classList.add('picture-popup_opened');
+}
+
+function closeImagePopup() {
+    imagePopup.classList.remove('picture-popup_opened');
 }
