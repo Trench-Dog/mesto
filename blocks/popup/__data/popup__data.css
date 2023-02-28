@@ -11,6 +11,9 @@
     min-height: 31px;
     margin: 0 34px 23px;
 }
+.popup__data::placeholder {
+    color: #c4c4c4;
+}
 @media screen and (max-width: 600px) {
     .popup__data {
         margin: 0 20px 23px;

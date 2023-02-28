@@ -45,11 +45,17 @@
             <div class="popup__container">
                 <form class="popup__form" name="popup-form">
                     <h2 class="popup__heading">Редактировать профиль</h2>
-                    <input type="text" class="popup__data popup__data_type_name" name="name-data" />
+                    <input
+                        type="text"
+                        class="popup__data popup__data_type_name"
+                        name="name-data"
+                        placeholder="Имя"
+                    />
                     <input
                         type="text"
                         class="popup__data popup__data_type_description"
                         name="description-data"
+                        placeholder="О себе"
                     />
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
@@ -67,7 +73,7 @@
                         placeholder="Название"
                     />
                     <input
-                        type="text"
+                        type="url"
                         class="popup-add__data popup-add__data_type_link"
                         name="link"
                         placeholder="Ссылка на картинку"
