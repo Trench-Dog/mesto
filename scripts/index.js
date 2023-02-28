@@ -34,11 +34,11 @@ const initialCards = [
 const profilePopup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close-button');
-let profileEditor = document.querySelector('.popup__form');
-let userNameInput = document.querySelector('.popup__data_type_name');
-let userDescriptionInput = document.querySelector('.popup__data_type_description');
-let userName = document.querySelector('.profile__name');
-let userDescription = document.querySelector('.profile__description');
+const profileEditor = document.querySelector('.popup__form');
+const userNameInput = document.querySelector('.popup__data_type_name');
+const userDescriptionInput = document.querySelector('.popup__data_type_description');
+const userName = document.querySelector('.profile__name');
+const userDescription = document.querySelector('.profile__description');
 const addCardPopup = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
 const imagePopup = document.querySelector('.picture-popup');
@@ -46,8 +46,8 @@ const closeAddPopupButton = document.querySelector('.popup-add__close-button');
 const createCardButton = document.querySelector('.popup-add__create-button');
 const closeImageButton = document.querySelector('.picture-popup__close-button');
 const places = document.querySelector('.places');
-let placeNameInput = document.querySelector('.popup-add__data_type_place');
-let placeLinkInput = document.querySelector('.popup-add__data_type_link');
+const placeNameInput = document.querySelector('.popup-add__data_type_place');
+const placeLinkInput = document.querySelector('.popup-add__data_type_link');
 
 initialCards.forEach(createCard);
 
