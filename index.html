@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./pages/index.css" />
         <title>Место: Россия</title>
+        <script src="./scripts/constants.js" defer></script>
         <script src="./scripts/index.js" defer></script>
     </head>
     <body class="page">
@@ -25,7 +26,11 @@
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <p class="profile__description">Исследователь океана</p>
-                    <button class="profile__edit-button" type="button"></button>
+                    <button
+                        class="profile__edit-button"
+                        type="button"
+                        aria-label="Редактировать"
+                    ></button>
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
@@ -41,53 +46,64 @@
                 </li>
             </template>
         </main>
-        <div class="popup">
-            <div class="popup__container">
-                <form class="popup__form" name="popup-form">
+        <div class="popup popup_type_profile">
+            <div class="popup__container popup__container_type_profile">
+                <form class="popup__form" name="popup-profile-form">
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <input
                         type="text"
                         class="popup__data popup__data_type_name"
                         name="name-data"
                         placeholder="Имя"
+                        required
                     />
                     <input
                         type="text"
                         class="popup__data popup__data_type_description"
                         name="description-data"
                         placeholder="О себе"
+                        required
                     />
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
-                <button class="popup__close-button" type="button"></button>
+                <button
+                    class="popup__close-button popup__close-button_type_close-profile"
+                    type="button"
+                ></button>
             </div>
         </div>
-        <div class="popup-add">
-            <div class="popup-add__container">
-                <form class="popup-add__form" name="popup-add-form">
-                    <h2 class="popup-add__heading">Новое место</h2>
+        <div class="popup popup_type_add-card">
+            <div class="popup__container popup__container_type_add-card">
+                <form class="popup__form" name="popup-add-form">
+                    <h2 class="popup__heading">Новое место</h2>
                     <input
                         type="text"
-                        class="popup-add__data popup-add__data_type_place"
+                        class="popup__data popup__data_type_place"
                         name="place-data"
                         placeholder="Название"
                     />
                     <input
                         type="url"
-                        class="popup-add__data popup-add__data_type_link"
+                        class="popup__data popup__data_type_link"
                         name="link"
                         placeholder="Ссылка на картинку"
                     />
-                    <button class="popup-add__create-button" type="submit">Создать</button>
+                    <button class="popup__save-button" type="submit">Создать</button>
                 </form>
-                <button class="popup-add__close-button" type="button"></button>
+                <button
+                    class="popup__close-button popup__close-button_type_close-add"
+                    type="button"
+                ></button>
             </div>
         </div>
-        <div class="picture-popup">
-            <div class="picture-popup__container">
-                <button class="picture-popup__close-button" type="button"></button>
-                <img class="picture-popup__image" />
-                <h2 class="picture-popup__title"></h2>
+        <div class="popup popup_type_image">
+            <div class="popup__container popup__container_type_image">
+                <button
+                    class="popup__close-button popup__close-button_type_close-image"
+                    type="button"
+                ></button>
+                <img class="popup__image" />
+                <h2 class="popup__place-name"></h2>
             </div>
         </div>
         <footer class="footer">

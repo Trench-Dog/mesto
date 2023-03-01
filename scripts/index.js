@@ -1,117 +1,71 @@
-const initialCards = [
-    {
-        name: 'Иволгинский дацан',
-        link: './images/place-ivolginskiy-datsan.jpg',
-        alt: 'Фото Иволгинского дацана'
-    },
-    {
-        name: 'Долина гейзеров',
-        link: './images/place-dolina-geyzerov.jpg',
-        alt: 'Фото Долины гейзеров'
-    },
-    {
-        name: 'Кунгурская пещера',
-        link: './images/place-kungurskaya-peshera.jpg',
-        alt: 'Фото Кунгурской пещеры'
-    },
-    {
-        name: 'Ленские столбы',
-        link: './images/place-lenskie-stolby.jpg',
-        alt: 'Фото Ленских столбов'
-    },
-    {
-        name: 'Озеро Эльтон',
-        link: './images/place-ozero-elton.jpg',
-        alt: 'Фото озера Эльтон'
-    },
-    {
-        name: 'Скала "Парус"',
-        link: './images/place-skala-parus.jpg',
-        alt: 'Фото скалы Парус'
-    }
-];
+initialCards.forEach(renderInitialCard);
 
-const profilePopup = document.querySelector('.popup');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButton = document.querySelector('.popup__close-button');
-const profileEditor = document.querySelector('.popup__form');
-const userNameInput = document.querySelector('.popup__data_type_name');
-const userDescriptionInput = document.querySelector('.popup__data_type_description');
-const userName = document.querySelector('.profile__name');
-const userDescription = document.querySelector('.profile__description');
-const addCardPopup = document.querySelector('.popup-add');
-const addButton = document.querySelector('.profile__add-button');
-const imagePopup = document.querySelector('.picture-popup');
-const closeAddPopupButton = document.querySelector('.popup-add__close-button');
-const createCardButton = document.querySelector('.popup-add__create-button');
-const closeImageButton = document.querySelector('.picture-popup__close-button');
-const places = document.querySelector('.places');
-const placeNameInput = document.querySelector('.popup-add__data_type_place');
-const placeLinkInput = document.querySelector('.popup-add__data_type_link');
-
-initialCards.forEach(createCard);
-
-editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
+editButton.addEventListener('click', openProfilePopup);
+closeProfileButton.addEventListener('click', closeProfilePopup);
 addButton.addEventListener('click', openAddPopup);
 closeAddPopupButton.addEventListener('click', closeAddPopup);
 createCardButton.addEventListener('click', createNewCard);
 closeImageButton.addEventListener('click', closeImagePopup);
 
-function createCard(card) {
+function createCard(name, link, alt) {
     const placeCard = document.querySelector('#placeTemplate').content.cloneNode(true);
     const placeTitle = placeCard.querySelector('.place__title');
     const placeImage = placeCard.querySelector('.place__image');
-    placeTitle.textContent = card.name;
-    placeImage.setAttribute('src', card.link);
-    placeImage.setAttribute('alt', card.alt);
     const likeButton = placeCard.querySelector('.place__button');
+    placeTitle.textContent = name;
+    placeImage.setAttribute('src', link);
+    placeImage.setAttribute('alt', alt);
     likeButton.addEventListener('click', putLike);
     placeImage.addEventListener('click', openImagePopup);
     const deleteButton = placeCard.querySelector('.place__delete-button');
     deleteButton.addEventListener('click', deleteCard);
-    places.append(placeCard);
+    return placeCard;
 }
 
-function openPopup() {
+function renderInitialCard(card) {
+    const initialCard = createCard(card.name, card.link, card.alt);
+    places.append(initialCard);
+}
+
+function openPopup(popupName) {
+    popupName.classList.add('popup_opened');
+}
+function closePopup(popupName) {
+    popupName.classList.remove('popup_opened');
+}
+
+function openProfilePopup() {
     userNameInput.value = userName.textContent;
     userDescriptionInput.value = userDescription.textContent;
-    profilePopup.classList.add('popup_opened');
-}
-function closePopup() {
-    profilePopup.classList.remove('popup_opened');
+    openPopup(profilePopup);
 }
 
-profileEditor.addEventListener('submit', saveData);
+function closeProfilePopup() {
+    closePopup(profilePopup);
+}
 
-function saveData(evt) {
+profileEditor.addEventListener('submit', saveProfileData);
+
+function saveProfileData(evt) {
     evt.preventDefault();
     userName.textContent = userNameInput.value;
     userDescription.textContent = userDescriptionInput.value;
-    closePopup();
+    closePopup(profilePopup);
 }
 
 function openAddPopup() {
-    addCardPopup.classList.add('popup-add_opened');
+    openPopup(addCardPopup);
 }
 function closeAddPopup() {
-    addCardPopup.classList.remove('popup-add_opened');
+    closePopup(addCardPopup);
 }
 
 function createNewCard(evt) {
     evt.preventDefault();
-    const newCard = document.querySelector('#placeTemplate').content.cloneNode(true);
-    const newCardTitle = newCard.querySelector('.place__title');
-    const newCardImage = newCard.querySelector('.place__image');
-    newCardTitle.textContent = placeNameInput.value;
-    newCardImage.setAttribute('src', placeLinkInput.value);
-    newCardImage.addEventListener('click', openImagePopup);
-    const likeButton = newCard.querySelector('.place__button');
-    likeButton.addEventListener('click', putLike);
-    const deleteButton = newCard.querySelector('.place__delete-button');
-    deleteButton.addEventListener('click', deleteCard);
+    const newCard = createCard(placeNameInput.value, placeLinkInput.value, placeNameInput.value);
     places.prepend(newCard);
-    closeAddPopup();
+    closePopup(addCardPopup);
+    cardCreator.reset();
 }
 
 function deleteCard(evt) {
@@ -129,13 +83,14 @@ function openImagePopup(evt) {
     const popupImage = evt.target;
     const popupImageContainer = popupImage.closest('.place');
     const popupTitle = popupImageContainer.querySelector('.place__title');
-    imagePopup.classList.add('picture-popup_opened');
-    const fullImage = imagePopup.querySelector('.picture-popup__image');
+    openPopup(imagePopup);
+    const fullImage = imagePopup.querySelector('.popup__image');
     fullImage.setAttribute('src', popupImage.getAttribute('src'));
-    const fullImageTitle = imagePopup.querySelector('.picture-popup__title');
+    fullImage.setAttribute('alt', popupImage.getAttribute('alt'));
+    const fullImageTitle = imagePopup.querySelector('.popup__place-name');
     fullImageTitle.textContent = popupTitle.textContent;
 }
 
 function closeImagePopup() {
-    imagePopup.classList.remove('picture-popup_opened');
+    closePopup(imagePopup);
 }

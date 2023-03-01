@@ -1,4 +1,4 @@
-.popup-add__container {
+.popup__container_type_profile {
     width: 100%;
     max-width: 430px;
     background-color: #fff;
@@ -7,7 +7,7 @@
     margin: 0;
 }
 @media screen and (max-width: 600px) {
-    .popup-add__container {
+    .popup__container_type_profile {
         max-width: 282px;
         min-height: 322px;
     }
