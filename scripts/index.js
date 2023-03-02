@@ -27,11 +27,11 @@ function renderInitialCard(card) {
     places.append(initialCard);
 }
 
-function openPopup(popupName) {
-    popupName.classList.add('popup_opened');
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
 }
-function closePopup(popupName) {
-    popupName.classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
 }
 
 function openProfilePopup() {
