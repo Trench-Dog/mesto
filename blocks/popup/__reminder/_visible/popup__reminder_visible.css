@@ -1,0 +1,5 @@
+.popup__reminder_visible {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0.5s ease 0s, opacity 0.3s;
+}

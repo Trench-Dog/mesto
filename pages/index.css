@@ -37,7 +37,9 @@
 @import url(../blocks/popup/__reminder/_type/popup__reminder_type_description.css);
 @import url(../blocks/popup/__reminder/_type/popup__reminder_type_place.css);
 @import url(../blocks/popup/__reminder/_type/popup__reminder_type_link.css);
+@import url(../blocks/popup/__reminder/_visible/popup__reminder_visible.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
+@import url(../blocks/popup/__save-button/_disabled/popup__save-button_disabled.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_close-profile.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_close-add.css);

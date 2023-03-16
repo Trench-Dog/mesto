@@ -8,6 +8,7 @@
     line-height: 1.21;
     color: #fff;
     margin: 0 auto;
+    border-radius: 2px;
     border: none;
     transition: opacity 0.5s ease 0.1s;
     cursor: pointer;
