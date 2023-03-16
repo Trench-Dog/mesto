@@ -1,5 +1,4 @@
 initialCards.forEach(renderInitialCard);
-
 editButton.addEventListener('click', openProfilePopup);
 closeProfileButton.addEventListener('click', closeProfilePopup);
 addButton.addEventListener('click', openAddPopup);
