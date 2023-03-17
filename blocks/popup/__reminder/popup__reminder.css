@@ -1,5 +1,5 @@
 .popup__reminder {
-    margin: 1px auto 3px 35px;
+    margin: 0 35px 0 35px;
     color: #ff0000;
     font-family: 'Inter', 'Arial', sans-serif;
     font-weight: 400;
@@ -8,6 +8,8 @@
     opacity: 0;
     visibility: hidden;
     transition: visibility 0.5s ease 0s, opacity 0.3s;
+    min-height: 29px;
+    padding: 5px 0 0 0;
 }
 @media screen and (max-width: 600px) {
     .popup__reminder {

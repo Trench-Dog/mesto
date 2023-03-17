@@ -6,6 +6,19 @@ closeAddPopupButton.addEventListener('click', closeAddPopup);
 createCardButton.addEventListener('click', createNewCard);
 closeImageButton.addEventListener('click', closeImagePopup);
 
+popupBackgroundList.forEach(popupBackground => {
+    popupBackground.addEventListener('click', evt => {
+        closePopup(evt.target);
+    });
+});
+
+document.addEventListener('keydown', evt => {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (evt.key === 'Escape') {
+        closePopup(openedPopup);
+    }
+});
+
 function createCard(name, link, alt) {
     const placeCard = document.querySelector('#placeTemplate').content.cloneNode(true);
     const placeTitle = placeCard.querySelector('.place__title');

@@ -49,3 +49,4 @@ const closeImageButton = document.querySelector('.popup__close-button_type_close
 const places = document.querySelector('.places');
 const placeNameInput = document.querySelector('.popup__data_type_place');
 const placeLinkInput = document.querySelector('.popup__data_type_link');
+const popupBackgroundList = Array.from(document.querySelectorAll('.popup'));

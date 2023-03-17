@@ -8,35 +8,34 @@ function hideInputError(errorMessage, incorrectInputClass) {
     errorMessage.classList.remove(incorrectInputClass);
 }
 
-function blockSubmitButton(input, formSelector, submitButtonSelector, inactiveButtonClass) {
-    const form = input.closest(formSelector);
-    submitButton = form.querySelector(submitButtonSelector);
+function blockSubmitButton(submitButton, inactiveButtonClass) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
 }
 
-function unblockSubmitButton(input, formSelector, submitButtonSelector, inactiveButtonClass) {
-    const form = input.closest(formSelector);
-    submitButton = form.querySelector(submitButtonSelector);
+function unblockSubmitButton(submitButton, inactiveButtonClass) {
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
 }
 
-function checkValidity(
-    input,
-    templateErrorClass,
-    incorrectInputClass,
-    formSelector,
-    submitButtonSelector,
-    inactiveButtonClass
-) {
+function checkValidity(input, templateErrorClass, incorrectInputClass) {
     const errorMessage = document.querySelector(`${templateErrorClass}${input.name}`);
     if (!input.validity.valid) {
         showInputError(errorMessage, input.validationMessage, incorrectInputClass);
-        blockSubmitButton(input, formSelector, submitButtonSelector, inactiveButtonClass);
     } else {
         hideInputError(errorMessage, incorrectInputClass);
-        unblockSubmitButton(input, formSelector, submitButtonSelector, inactiveButtonClass);
+    }
+}
+
+function toggleButton(submitButton, inputSelector, inactiveButtonClass, form) {
+    const formInputs = Array.from(form.querySelectorAll(inputSelector));
+    const invalidInput = formInputs.some(input => {
+        return !input.validity.valid;
+    });
+    if (invalidInput) {
+        blockSubmitButton(submitButton, inactiveButtonClass);
+    } else {
+        unblockSubmitButton(submitButton, inactiveButtonClass);
     }
 }
 
@@ -46,18 +45,15 @@ function manageValidationEventListeners(
     incorrectInputClass,
     formSelector,
     submitButtonSelector,
-    inactiveButtonClass
+    inactiveButtonClass,
+    inputSelector
 ) {
     inputList.forEach(input => {
         input.addEventListener('input', () => {
-            checkValidity(
-                input,
-                templateErrorClass,
-                incorrectInputClass,
-                formSelector,
-                submitButtonSelector,
-                inactiveButtonClass
-            );
+            const form = input.closest(formSelector);
+            const submitButton = form.querySelector(submitButtonSelector);
+            checkValidity(input, templateErrorClass, incorrectInputClass);
+            toggleButton(submitButton, inputSelector, inactiveButtonClass, form);
         });
     });
 }
@@ -70,7 +66,8 @@ function enableValidation(config) {
         config.incorrectInputClass,
         config.formSelector,
         config.submitButtonSelector,
-        config.inactiveButtonClass
+        config.inactiveButtonClass,
+        config.inputSelector
     );
 }
 
