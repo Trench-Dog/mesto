@@ -7,16 +7,9 @@ createCardButton.addEventListener('click', createNewCard);
 closeImageButton.addEventListener('click', closeImagePopup);
 
 popupBackgroundList.forEach(popupBackground => {
-    popupBackground.addEventListener('click', evt => {
+    popupBackground.addEventListener('mousedown', evt => {
         closePopup(evt.target);
     });
-});
-
-document.addEventListener('keydown', evt => {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (evt.key === 'Escape') {
-        closePopup(openedPopup);
-    }
 });
 
 function createCard(name, link, alt) {
@@ -39,10 +32,21 @@ function renderInitialCard(card) {
     places.append(initialCard);
 }
 
+function manageClosingByEsc(evt) {
+    const pushedKey = evt.key;
+    const openedPopup = document.querySelector('.popup_opened');
+    if (pushedKey === 'Escape') {
+        closePopup(openedPopup);
+    }
+}
+
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', manageClosingByEsc);
 }
+
 function closePopup(popup) {
+    document.removeEventListener('keydown', manageClosingByEsc);
     popup.classList.remove('popup_opened');
 }
 
