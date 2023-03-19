@@ -3,9 +3,9 @@ editButton.addEventListener('click', openProfilePopup);
 closeProfileButton.addEventListener('click', closeProfilePopup);
 addButton.addEventListener('click', openAddPopup);
 closeAddPopupButton.addEventListener('click', closeAddPopup);
-createCardButton.addEventListener('click', createNewCard);
+cardCreator.addEventListener('submit', createNewCard);
 closeImageButton.addEventListener('click', closeImagePopup);
-
+profileEditor.addEventListener('submit', saveProfileData);
 popupBackgroundList.forEach(popupBackground => {
     popupBackground.addEventListener('mousedown', evt => {
         closePopup(evt.target);
@@ -34,8 +34,8 @@ function renderInitialCard(card) {
 
 function manageClosingByEsc(evt) {
     const pushedKey = evt.key;
-    const openedPopup = document.querySelector('.popup_opened');
     if (pushedKey === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     }
 }
@@ -60,8 +60,6 @@ function closeProfilePopup() {
     closePopup(profilePopup);
 }
 
-profileEditor.addEventListener('submit', saveProfileData);
-
 function saveProfileData(evt) {
     evt.preventDefault();
     userName.textContent = userNameInput.value;
@@ -71,6 +69,7 @@ function saveProfileData(evt) {
 
 function openAddPopup() {
     openPopup(addCardPopup);
+    console.log(createCardButton);
 }
 function closeAddPopup() {
     closePopup(addCardPopup);
@@ -82,11 +81,12 @@ function createNewCard(evt) {
     places.prepend(newCard);
     closePopup(addCardPopup);
     cardCreator.reset();
+    createCardButton.classList.add('popup__save-button_disabled');
 }
 
 function deleteCard(evt) {
     const usedButton = evt.target;
-    deletedCard = usedButton.closest('.place');
+    const deletedCard = usedButton.closest('.place');
     deletedCard.remove();
 }
 
@@ -100,10 +100,8 @@ function openImagePopup(evt) {
     const popupImageContainer = popupImage.closest('.place');
     const popupTitle = popupImageContainer.querySelector('.place__title');
     openPopup(imagePopup);
-    const fullImage = imagePopup.querySelector('.popup__image');
     fullImage.setAttribute('src', popupImage.getAttribute('src'));
     fullImage.setAttribute('alt', popupImage.getAttribute('alt'));
-    const fullImageTitle = imagePopup.querySelector('.popup__place-name');
     fullImageTitle.textContent = popupTitle.textContent;
 }
 
