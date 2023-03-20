@@ -1,14 +1,16 @@
 initialCards.forEach(renderInitialCard);
 editButton.addEventListener('click', openProfilePopup);
-closeProfileButton.addEventListener('click', closeProfilePopup);
 addButton.addEventListener('click', openAddPopup);
-closeAddPopupButton.addEventListener('click', closeAddPopup);
 cardCreator.addEventListener('submit', createNewCard);
-closeImageButton.addEventListener('click', closeImagePopup);
 profileEditor.addEventListener('submit', saveProfileData);
-popupBackgroundList.forEach(popupBackground => {
-    popupBackground.addEventListener('mousedown', evt => {
-        closePopup(evt.target);
+popupList.forEach(popup => {
+    popup.addEventListener('mousedown', evt => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup);
+        }
+        if (evt.target.classList.contains('popup__close-button')) {
+            closePopup(popup);
+        }
     });
 });
 
@@ -56,10 +58,6 @@ function openProfilePopup() {
     openPopup(profilePopup);
 }
 
-function closeProfilePopup() {
-    closePopup(profilePopup);
-}
-
 function saveProfileData(evt) {
     evt.preventDefault();
     userName.textContent = userNameInput.value;
@@ -69,10 +67,6 @@ function saveProfileData(evt) {
 
 function openAddPopup() {
     openPopup(addCardPopup);
-    console.log(createCardButton);
-}
-function closeAddPopup() {
-    closePopup(addCardPopup);
 }
 
 function createNewCard(evt) {
@@ -103,8 +97,4 @@ function openImagePopup(evt) {
     fullImage.setAttribute('src', popupImage.getAttribute('src'));
     fullImage.setAttribute('alt', popupImage.getAttribute('alt'));
     fullImageTitle.textContent = popupTitle.textContent;
-}
-
-function closeImagePopup() {
-    closePopup(imagePopup);
 }
