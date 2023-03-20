@@ -76,6 +76,7 @@ function createNewCard(evt) {
     closePopup(addCardPopup);
     cardCreator.reset();
     createCardButton.classList.add('popup__save-button_disabled');
+    createCardButton.disabled = true;
 }
 
 function deleteCard(evt) {
