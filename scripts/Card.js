@@ -1,9 +1,9 @@
-export class Card {
-    constructor(data, templateSelector) {
+export default class Card {
+    constructor(name, link, alt, templateSelector) {
         this._templateSelector = templateSelector;
-        this._name = data.name;
-        this._link = data.link;
-        this._alt = data.alt;
+        this._name = name;
+        this._link = link;
+        this._alt = alt;
     }
     _getTemplate() {
         const placeCard = document.querySelector(this._templateSelector).content.cloneNode(true);
@@ -22,8 +22,15 @@ export class Card {
         return this._card;
     }
     _setEventListeners() {
-        this._card.querySelector('.place__image').addEventListener('click', () => {
+        this._image.addEventListener('click', () => {
             this._openImagePopup();
+        });
+        this._likeButton.addEventListener('click', () => {
+            this._likeButton.classList.toggle('place__button_active');
+        });
+        this._deleteButton.addEventListener('click', () => {
+            const deletedCard = this._deleteButton.closest('.place');
+            deletedCard.remove();
         });
     }
     _openImagePopup() {
@@ -33,8 +40,3 @@ export class Card {
         fullImageTitle.textContent = this._name;
     }
 }
-initialCards.forEach(card => {
-    const cardElement = new Card(card, '#placeTemplate');
-    const newCard = cardElement.generateCard();
-    places.append(newCard);
-});
