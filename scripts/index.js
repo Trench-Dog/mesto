@@ -3,6 +3,7 @@ initialCards.forEach(card => {
     const cardElement = new Card(card.name, card.link, card.alt, '#placeTemplate');
     const newCard = cardElement.generateCard();
     places.append(newCard);
+    newCard.querySelector;
 });
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openAddPopup);
@@ -70,12 +71,4 @@ function createNewCard(evt) {
     createCardButton.disabled = true;
 }
 
-// function openImagePopup(evt) {
-//     const popupImage = evt.target;
-//     const popupImageContainer = popupImage.closest('.place');
-//     const popupTitle = popupImageContainer.querySelector('.place__title');
-//     openPopup(imagePopup);
-//     fullImage.setAttribute('src', popupImage.getAttribute('src'));
-//     fullImage.setAttribute('alt', popupImage.getAttribute('alt'));
-//     fullImageTitle.textContent = popupTitle.textContent;
-// }
+export { openPopup, manageClosingByEsc };
