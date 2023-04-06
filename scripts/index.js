@@ -1,10 +1,15 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 initialCards.forEach(card => {
     const cardElement = new Card(card.name, card.link, card.alt, '#placeTemplate');
     const newCard = cardElement.generateCard();
     places.append(newCard);
-    newCard.querySelector;
 });
+const profileValidator = new FormValidator(formConfig, 'popup-profile-form');
+profileValidator.enableValidation();
+const cardValidator = new FormValidator(formConfig, 'popup-add-form');
+cardValidator.enableValidation();
+
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openAddPopup);
 cardCreator.addEventListener('submit', createNewCard);
@@ -71,4 +76,4 @@ function createNewCard(evt) {
     createCardButton.disabled = true;
 }
 
-export { openPopup, manageClosingByEsc };
+export { openPopup };

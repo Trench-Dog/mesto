@@ -1,6 +1,7 @@
 export default class FormValidator {
     constructor(config, formName) {
-        this._form = document.getElementByName(formName)[0];
+        this._form = document.getElementsByName(formName)[0];
+        this._submitButton = this._form.querySelector(config.submitButtonSelector);
         this._formSelector = config.formSelector;
         this._inputSelector = config.inputSelector;
         this._submitButtonSelector = config.submitButtonSelector;
@@ -9,48 +10,46 @@ export default class FormValidator {
         this._incorrectInputClass = config.incorrectInputClass;
         this._inputList = this._form.querySelectorAll(this._inputSelector);
     }
-    _toggleButton(submitButton, inputSelector, inactiveButtonClass, form) {
-        const formInputs = Array.from(form.querySelectorAll(inputSelector));
+    _toggleButton() {
+        const formInputs = Array.from(this._inputList);
         const invalidInput = formInputs.some(input => {
             return !input.validity.valid;
         });
         if (invalidInput) {
-            _blockSubmitButton(submitButton, inactiveButtonClass);
+            this._blockSubmitButton();
         } else {
-            _unblockSubmitButton(submitButton, inactiveButtonClass);
+            this._unblockSubmitButton();
         }
     }
-    _showInputError(errorMessage, errorText, incorrectInputClass) {
+    _showInputError(errorMessage, errorText) {
         errorMessage.textContent = errorText;
-        errorMessage.classList.add(incorrectInputClass);
+        errorMessage.classList.add(this._incorrectInputClass);
     }
-    _hideInputError(errorMessage, incorrectInputClass) {
+    _hideInputError(errorMessage) {
         errorMessage.textContent = '';
-        errorMessage.classList.remove(incorrectInputClass);
+        errorMessage.classList.remove(this._incorrectInputClass);
     }
-    _blockSubmitButton(submitButton, inactiveButtonClass) {
-        submitButton.classList.add(inactiveButtonClass);
-        submitButton.disabled = true;
+    _blockSubmitButton() {
+        this._submitButton.classList.add(this._inactiveButtonClass);
+        this._submitButton.disabled = true;
     }
-    _unblockSubmitButton(submitButton, inactiveButtonClass) {
-        submitButton.classList.remove(inactiveButtonClass);
-        submitButton.disabled = false;
+    _unblockSubmitButton() {
+        this._submitButton.classList.remove(this._inactiveButtonClass);
+        this._submitButton.disabled = false;
     }
-    _checkValidity(input, templateErrorClass, incorrectInputClass) {
-        const errorMessage = document.querySelector(`${templateErrorClass}${input.name}`);
+    _checkValidity(input) {
+        const errorMessage = this._form.querySelector(`${this._templateErrorClass}${input.name}`);
         if (!input.validity.valid) {
-            _showInputError(errorMessage, input.validationMessage, incorrectInputClass);
+            this._showInputError(errorMessage, input.validationMessage);
         } else {
-            _hideInputError(errorMessage, incorrectInputClass);
+            this._hideInputError(errorMessage);
         }
     }
     enableValidation() {
         this._inputList.forEach(input => {
             input.addEventListener('input', () => {
-                const form = input.closest(this._formSelector);
-                const submitButton = form.querySelector(this._submitButtonSelector);
-                _checkValidity(input, templateErrorClass, incorrectInputClass);
-                _toggleButton(submitButton, inputSelector, inactiveButtonClass, form);
+                this._checkValidity(input);
+                this._toggleButton();
             });
         });
     }

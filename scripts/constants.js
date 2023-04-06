@@ -49,3 +49,11 @@ const places = document.querySelector('.places');
 const placeNameInput = document.querySelector('.popup__data_type_place');
 const placeLinkInput = document.querySelector('.popup__data_type_link');
 const popupList = Array.from(document.querySelectorAll('.popup'));
+const formConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__data',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    templateErrorClass: '.popup__reminder_type_',
+    incorrectInputClass: 'popup__reminder_visible'
+};
