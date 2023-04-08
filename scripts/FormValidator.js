@@ -9,6 +9,7 @@ export default class FormValidator {
         this._templateErrorClass = config.templateErrorClass;
         this._incorrectInputClass = config.incorrectInputClass;
         this._inputList = this._form.querySelectorAll(this._inputSelector);
+        this._errorList = this._form.querySelectorAll(config.commonErrorSelector);
     }
     _toggleButton() {
         const formInputs = Array.from(this._inputList);
@@ -44,6 +45,12 @@ export default class FormValidator {
         } else {
             this._hideInputError(errorMessage);
         }
+    }
+    resetValidation() {
+        this._toggleButton();
+        this._errorList.forEach(error => {
+            this._hideInputError(error);
+        });
     }
     enableValidation() {
         this._inputList.forEach(input => {

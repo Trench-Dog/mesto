@@ -44,7 +44,6 @@ const cardCreator = addCardPopup.querySelector('.popup__form');
 const imagePopup = document.querySelector('.popup_type_image');
 const fullImage = imagePopup.querySelector('.popup__image');
 const fullImageTitle = imagePopup.querySelector('.popup__place-name');
-const createCardButton = addCardPopup.querySelector('.popup__save-button');
 const places = document.querySelector('.places');
 const placeNameInput = document.querySelector('.popup__data_type_place');
 const placeLinkInput = document.querySelector('.popup__data_type_link');
@@ -54,6 +53,7 @@ const formConfig = {
     inputSelector: '.popup__data',
     submitButtonSelector: '.popup__save-button',
     inactiveButtonClass: 'popup__save-button_disabled',
+    commonErrorSelector: '.popup__reminder',
     templateErrorClass: '.popup__reminder_type_',
     incorrectInputClass: 'popup__reminder_visible'
 };

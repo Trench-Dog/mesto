@@ -1,17 +1,21 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 initialCards.forEach(card => {
-    const cardElement = new Card(card.name, card.link, card.alt, '#placeTemplate');
-    const newCard = cardElement.generateCard();
-    places.append(newCard);
+    places.append(createCard(card));
 });
 const profileValidator = new FormValidator(formConfig, 'popup-profile-form');
 profileValidator.enableValidation();
 const cardValidator = new FormValidator(formConfig, 'popup-add-form');
 cardValidator.enableValidation();
 
-editButton.addEventListener('click', openProfilePopup);
-addButton.addEventListener('click', openAddPopup);
+editButton.addEventListener('click', () => {
+    openProfilePopup();
+    profileValidator.resetValidation();
+});
+addButton.addEventListener('click', () => {
+    openAddPopup();
+    cardValidator.resetValidation();
+});
 cardCreator.addEventListener('submit', createNewCard);
 profileEditor.addEventListener('submit', saveProfileData);
 popupList.forEach(popup => {
@@ -24,6 +28,12 @@ popupList.forEach(popup => {
         }
     });
 });
+
+function createCard(card) {
+    const cardElement = new Card(card.name, card.link, card.alt, '#placeTemplate', handleCardClick);
+    const newCard = cardElement.generateCard();
+    return newCard;
+}
 
 function manageClosingByEsc(evt) {
     const pushedKey = evt.key;
@@ -62,18 +72,19 @@ function openAddPopup() {
 
 function createNewCard(evt) {
     evt.preventDefault();
-    const cardElement = new Card(
-        placeNameInput.value,
-        placeLinkInput.value,
-        placeNameInput.value,
-        '#placeTemplate'
-    );
-    const newCard = cardElement.generateCard();
-    places.prepend(newCard);
+    const card = {
+        name: placeNameInput.value,
+        link: placeLinkInput.value,
+        alt: placeNameInput.value
+    };
+    places.prepend(createCard(card));
     closePopup(addCardPopup);
     cardCreator.reset();
-    createCardButton.classList.add('popup__save-button_disabled');
-    createCardButton.disabled = true;
 }
 
-export { openPopup };
+function handleCardClick(name, link) {
+    fullImage.setAttribute('src', link);
+    fullImage.setAttribute('alt', name);
+    fullImageTitle.textContent = name;
+    openPopup(imagePopup);
+}
