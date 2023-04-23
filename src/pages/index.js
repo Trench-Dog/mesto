@@ -1,5 +1,27 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import './index.css';
+import {
+    initialCards,
+    profilePopup,
+    editButton,
+    profileEditor,
+    userNameInput,
+    userDescriptionInput,
+    userName,
+    userDescription,
+    addCardPopup,
+    addButton,
+    cardCreator,
+    imagePopup,
+    fullImage,
+    fullImageTitle,
+    places,
+    placeNameInput,
+    placeLinkInput,
+    popupList,
+    formConfig
+} from '../components/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 initialCards.forEach(card => {
     places.append(createCard(card));
 });

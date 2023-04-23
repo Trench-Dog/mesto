@@ -3,18 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./pages/index.css" />
         <title>Место: Россия</title>
-        <script src="./src/constants.js" defer></script>
-        <script src="./src/index.js" type="module"></script>
-        <script type="module" src="./src/Card.js"></script>
-        <script type="module" src="./src/FormValidator.js"></script>
     </head>
     <body class="page">
         <header class="header">
             <img
                 class="header__logo"
-                src="./images/header-logo.svg"
+                src="<%=require('./images/header-logo.svg')%>"
                 alt="Логотип с надписью Место Россия"
             />
         </header>
@@ -22,7 +17,7 @@
             <section class="profile">
                 <img
                     class="profile__avatar"
-                    src="./images/profile-avatar-kusto.jpg"
+                    src="<%=require('./images/profile-avatar-kusto.jpg')%>"
                     alt="Фото профиля"
                 />
                 <div class="profile__info">
