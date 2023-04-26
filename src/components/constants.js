@@ -47,10 +47,6 @@ const userDescription = document.querySelector('.profile__description');
 const addCardPopup = document.querySelector('.popup_type_add-card');
 const addButton = document.querySelector('.profile__add-button');
 const cardCreator = addCardPopup.querySelector('.popup__form');
-const imagePopup = document.querySelector('.popup_type_image');
-const fullImage = imagePopup.querySelector('.popup__image');
-const fullImageTitle = imagePopup.querySelector('.popup__place-name');
-const places = document.querySelector('.places');
 const placeNameInput = document.querySelector('.popup__data_type_place');
 const placeLinkInput = document.querySelector('.popup__data_type_link');
 const popupList = Array.from(document.querySelectorAll('.popup'));
@@ -76,10 +72,6 @@ export {
     addCardPopup,
     addButton,
     cardCreator,
-    imagePopup,
-    fullImage,
-    fullImageTitle,
-    places,
     placeNameInput,
     placeLinkInput,
     popupList,
