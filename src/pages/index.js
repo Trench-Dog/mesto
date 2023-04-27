@@ -24,13 +24,9 @@ const placesSection = new Section(
     {
         items: initialCards,
         renderer: card => {
-            const cardElement = new Card(
-                card.name,
-                card.link,
-                card.alt,
-                '#placeTemplate',
-                handleCardClick
-            );
+            const cardElement = new Card(card.name, card.link, card.alt, '#placeTemplate', () => {
+                imagePopup.open(card.name, card.link);
+            });
             const newCard = cardElement.generateCard();
             return newCard;
         }
@@ -102,7 +98,3 @@ function saveProfileData(evt) {
 // function openAddPopup() {
 //     openPopup(addCardPopup);
 // }
-
-function handleCardClick(name, link) {
-    imagePopup.open(name, link);
-}
