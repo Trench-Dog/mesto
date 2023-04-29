@@ -36,20 +36,12 @@ const initialCards = [
         alt: 'Фото скалы Парус'
     }
 ];
-
-const profilePopup = document.querySelector('.popup_type_profile');
 const editButton = document.querySelector('.profile__edit-button');
-const profileEditor = profilePopup.querySelector('.popup__form');
 const userNameInput = document.querySelector('.popup__data_type_name');
 const userDescriptionInput = document.querySelector('.popup__data_type_description');
-const userName = document.querySelector('.profile__name');
-const userDescription = document.querySelector('.profile__description');
-const addCardPopup = document.querySelector('.popup_type_add-card');
 const addButton = document.querySelector('.profile__add-button');
-const cardCreator = addCardPopup.querySelector('.popup__form');
 const placeNameInput = document.querySelector('.popup__data_type_place');
 const placeLinkInput = document.querySelector('.popup__data_type_link');
-const popupList = Array.from(document.querySelectorAll('.popup'));
 const formConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__data',
@@ -59,21 +51,13 @@ const formConfig = {
     templateErrorClass: '.popup__reminder_type_',
     incorrectInputClass: 'popup__reminder_visible'
 };
-
 export {
     initialCards,
-    profilePopup,
     editButton,
-    profileEditor,
     userNameInput,
     userDescriptionInput,
-    userName,
-    userDescription,
-    addCardPopup,
     addButton,
-    cardCreator,
     placeNameInput,
     placeLinkInput,
-    popupList,
     formConfig
 };
