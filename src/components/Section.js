@@ -9,12 +9,15 @@ export default class Section {
             this._itemSection.append(this._renderer(item));
         });
     }
-    addItem(name, link) {
+    renderItem(name, link) {
         const item = {
             name: name,
             link: link,
             alt: name
         };
-        this._itemSection.prepend(this._renderer(item));
+        this.addItem(this._renderer(item));
+    }
+    addItem(card) {
+        this._itemSection.prepend(card);
     }
 }
