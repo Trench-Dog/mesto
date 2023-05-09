@@ -1,6 +1,6 @@
 .place__description {
     max-width: 246px;
-    margin: 0 auto 2px 21px;
+    margin: 16px auto 0 21px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

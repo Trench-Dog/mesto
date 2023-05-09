@@ -1,65 +1,72 @@
 import './index.css';
 import {
-    initialCards,
+    profileImage,
     editButton,
     userNameInput,
     userDescriptionInput,
     addButton,
     profileForm,
     addCardForm,
-    placeNameInput,
-    placeLinkInput,
+    changeAvatarForm,
     formConfig
-} from '../components/constants.js';
+} from '../utils/constants.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-const placesSection = new Section(
-    {
-        items: initialCards,
-        renderer: card => {
-            const cardElement = new Card(
-                card.name,
-                card.link,
-                card.alt,
-                '#placeTemplate',
-                (name, link) => {
-                    imagePopup.open(name, link);
-                }
-            );
-            return cardElement.generateCard();
-        }
-    },
-    '.places'
-);
-placesSection.renderInitialCards();
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
+import Api from '../components/Api.js';
 const profileValidator = new FormValidator(formConfig, profileForm);
 profileValidator.enableValidation();
 const cardValidator = new FormValidator(formConfig, addCardForm);
 cardValidator.enableValidation();
+const avatarValidator = new FormValidator(formConfig, changeAvatarForm);
+avatarValidator.enableValidation();
 const profileInfo = new UserInfo({
     nameSelector: '.profile__name',
-    descriptionSelector: '.profile__description'
+    descriptionSelector: '.profile__description',
+    avatarSelector: '.profile__avatar'
 });
 const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();
 const profilePopup = new PopupWithForm('.popup_type_profile', profileFormSubmit);
 function profileFormSubmit(inputValues) {
-    profileInfo.setUserInfo({
-        name: inputValues.name,
-        description: inputValues.description
-    });
+    api.editUserInfo(inputValues.name, inputValues.description)
+        .then(editedData => {
+            profileInfo.setUserInfo({
+                name: editedData.name,
+                description: editedData.about,
+                link: editedData.avatar
+            });
+        })
+        .catch(err => {
+            console.log(`Ошибка: ${err}`);
+        });
 }
 profilePopup.setEventListeners();
 const addCardPopup = new PopupWithForm('.popup_type_add-card', addCardFormSubmit);
 function addCardFormSubmit(inputValues) {
-    placesSection.renderItem(inputValues.place, inputValues.link);
+    api.sendNewCard(inputValues.place, inputValues.link)
+        .then(cardData => {
+            placesSection.renderItem(cardData.name, cardData.link);
+        })
+        .catch(err => {
+            console.log(`Ошибка: ${err}`);
+        });
 }
-
 addCardPopup.setEventListeners();
+const avatarPopup = new PopupWithForm('.popup_type_avatar', changeAvatarSubmit);
+function changeAvatarSubmit(inputValues) {
+    api.changeAvatar(inputValues.avatar).then(res => {
+        profileImage.src = res.avatar;
+    });
+}
+avatarPopup.setEventListeners();
+profileImage.addEventListener('click', () => {
+    avatarPopup.open();
+});
 editButton.addEventListener('click', () => {
     profilePopup.open();
     const userData = profileInfo.getUserInfo();
@@ -71,3 +78,51 @@ addButton.addEventListener('click', () => {
     addCardPopup.open();
     cardValidator.resetValidation();
 });
+const confirmationPopup = new PopupWithConfirmation('.popup_type_confirm');
+confirmationPopup.setEventListeners();
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+    headers: {
+        authorization: '23076075-9776-470a-ae27-dcd7a176dfd6',
+        'Content-Type': 'application/json'
+    }
+});
+api.getInitialCards()
+    .then(cards => {
+        const placesSection = new Section(
+            {
+                items: cards,
+                renderer: card => {
+                    const cardElement = new Card(
+                        card.name,
+                        card.link,
+                        card.likes.length,
+                        '#placeTemplate',
+                        (name, link) => {
+                            imagePopup.open(name, link);
+                        },
+                        () => {
+                            confirmationPopup.open();
+                        }
+                    );
+                    return cardElement.generateCard();
+                }
+            },
+            '.places'
+        );
+        placesSection.renderInitialCards();
+    })
+    .catch(err => {
+        console.log(`Ошибка: ${err}`);
+    });
+api.getUserInfo()
+    .then(data => {
+        profileInfo.setUserInfo({
+            name: data.name,
+            description: data.about,
+            link: data.avatar
+        });
+    })
+    .catch(err => {
+        console.log(`Ошибка: ${err}`);
+    });

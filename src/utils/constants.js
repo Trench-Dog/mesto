@@ -1,11 +1,10 @@
-import {
-    datsanImage,
-    geysersImage,
-    caveImage,
-    pillarsImage,
-    lakeImage,
-    rockImage
-} from '../utils/utils.js';
+const datsanImage = new URL('../images/place-ivolginskiy-datsan.jpg', import.meta.url);
+const geysersImage = new URL('../images/place-dolina-geyzerov.jpg', import.meta.url);
+const caveImage = new URL('../images/place-kungurskaya-peshera.jpg', import.meta.url);
+const pillarsImage = new URL('../images/place-lenskie-stolby.jpg', import.meta.url);
+const lakeImage = new URL('../images/place-ozero-elton.jpg', import.meta.url);
+const rockImage = new URL('../images/place-skala-parus.jpg', import.meta.url);
+
 const initialCards = [
     {
         name: 'Иволгинский дацан',
@@ -38,14 +37,14 @@ const initialCards = [
         alt: 'Фото скалы Парус'
     }
 ];
+const profileImage = document.querySelector('.profile__avatar');
 const editButton = document.querySelector('.profile__edit-button');
 const userNameInput = document.querySelector('.popup__data_type_name');
 const userDescriptionInput = document.querySelector('.popup__data_type_description');
 const addButton = document.querySelector('.profile__add-button');
 const profileForm = document.forms[0];
 const addCardForm = document.forms[1];
-const placeNameInput = document.querySelector('.popup__data_type_place');
-const placeLinkInput = document.querySelector('.popup__data_type_link');
+const changeAvatarForm = document.forms[3];
 const formConfig = {
     inputSelector: '.popup__data',
     submitButtonSelector: '.popup__save-button',
@@ -55,14 +54,13 @@ const formConfig = {
     incorrectInputClass: 'popup__reminder_visible'
 };
 export {
-    initialCards,
+    profileImage,
     editButton,
     userNameInput,
     userDescriptionInput,
     addButton,
     profileForm,
     addCardForm,
-    placeNameInput,
-    placeLinkInput,
+    changeAvatarForm,
     formConfig
 };
