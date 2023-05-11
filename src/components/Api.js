@@ -78,17 +78,6 @@ export default class Api {
             return res.json();
         });
     }
-    getLikes(cardId) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'GET',
-            headers: this._headers
-        }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
-        });
-    }
     changeAvatar(link) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
