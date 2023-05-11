@@ -1,12 +1,27 @@
 export default class Card {
-    constructor(name, link, likeNumber, templateSelector, handleCardClick, openConfirmationPopup) {
+    constructor(
+        name,
+        link,
+        templateSelector,
+        handleCardClick,
+        openConfirmationPopup,
+        likeNumber,
+        isOwner,
+        cardId,
+        putLike,
+        removeLike
+    ) {
         this._templateSelector = templateSelector;
         this._name = name;
         this._link = link;
         this._alt = name;
-        this._likeNumber = likeNumber;
         this._handleCardClick = handleCardClick;
         this._openConfirmationPopup = openConfirmationPopup;
+        this._likeNumber = likeNumber;
+        this._isOwner = isOwner;
+        this._cardId = cardId;
+        this._putLike = putLike;
+        this._removeLike = removeLike;
     }
     _getTemplate() {
         const placeCard = document.querySelector(this._templateSelector).content.cloneNode(true);
@@ -19,6 +34,9 @@ export default class Card {
         this._likeButton = this._card.querySelector('.place__button');
         this._likeCounter = this._card.querySelector('.place__like-counter');
         this._deleteButton = this._card.querySelector('.place__delete-button');
+        if (!this._isOwner) {
+            this._deleteButton.remove();
+        }
         this._image.setAttribute('src', this._link);
         this._image.setAttribute('alt', this._alt);
         this._title.textContent = this._name;
@@ -26,12 +44,17 @@ export default class Card {
         this._setEventListeners();
         return this._card;
     }
-    _toggleLike() {
-        this._likeButton.classList.toggle('place__button_active');
+    setLikes(likeNumber) {
+        this._likeCounter.textContent = likeNumber;
     }
-    _deleteCard() {
-        const deletedCard = this._deleteButton.closest('.place');
-        deletedCard.remove();
+    _toggleLike() {
+        if (this._likeButton.classList.contains('place__button_active')) {
+            this._removeLike(this._cardId);
+            this._likeButton.classList.remove('place__button_active');
+        } else {
+            this._putLike(this._cardId);
+            this._likeButton.classList.add('place__button_active');
+        }
     }
     _setEventListeners() {
         this._image.addEventListener('click', () => {
@@ -41,7 +64,7 @@ export default class Card {
             this._toggleLike();
         });
         this._deleteButton.addEventListener('click', () => {
-            this._openConfirmationPopup();
+            this._openConfirmationPopup(this._deleteButton, this._cardId);
         });
     }
 }

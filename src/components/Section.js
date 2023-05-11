@@ -3,18 +3,26 @@ export default class Section {
         this._renderer = renderer;
         this._itemSection = document.querySelector(containerSelector);
     }
-    renderInitialCards(items) {
+    renderInitialCards(items, userId) {
         items.forEach(item => {
-            this._itemSection.append(this._renderer(item));
+            let isOwner = () => {
+                if (userId === item.owner._id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+            this._itemSection.append(this._renderer(item, item.likes.length, isOwner()));
         });
     }
-    renderItem(name, link) {
+    renderItem(name, link, likes, isOwner, id) {
         const item = {
             name: name,
             link: link,
-            alt: name
+            alt: name,
+            _id: id
         };
-        this.addItem(this._renderer(item));
+        this.addItem(this._renderer(item, likes, isOwner));
     }
     addItem(card) {
         this._itemSection.prepend(card);

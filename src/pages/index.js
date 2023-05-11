@@ -29,19 +29,43 @@ const profileInfo = new UserInfo({
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar'
 });
-const placesSection = new Section(card => {
+const placesSection = new Section((card, likes, isOwner) => {
     const cardElement = new Card(
         card.name,
         card.link,
-        card.likes.length,
         '#placeTemplate',
         (name, link) => {
             imagePopup.open(name, link);
         },
-        () => {
-            confirmationPopup.open();
+        (deleteButton, cardId) => {
+            const deleteCard = api.deleteCard(cardId).catch(err => {
+                console.log(`Ошибка: ${err}`);
+            });
+            confirmationPopup.open(deleteButton, deleteCard);
+        },
+        likes,
+        isOwner,
+        card._id,
+        cardId => {
+            api.putLike(cardId)
+                .then(res => {
+                    cardElement._likeCounter.textContent = res.likes.length;
+                })
+                .catch(err => {
+                    console.log(`Ошибка: ${err}`);
+                });
+        },
+        cardId => {
+            api.deleteLike(cardId)
+                .then(res => {
+                    cardElement._likeCounter.textContent = res.likes.length;
+                })
+                .catch(err => {
+                    console.log(`Ошибка: ${err}`);
+                });
         }
     );
+
     return cardElement.generateCard();
 }, '.places');
 const imagePopup = new PopupWithImage('.popup_type_image');
@@ -65,7 +89,13 @@ const addCardPopup = new PopupWithForm('.popup_type_add-card', addCardFormSubmit
 function addCardFormSubmit(inputValues) {
     api.sendNewCard(inputValues.place, inputValues.link)
         .then(cardData => {
-            placesSection.renderItem(cardData.name, cardData.link);
+            placesSection.renderItem(
+                cardData.name,
+                cardData.link,
+                cardData.likes.length,
+                true,
+                cardData._id
+            );
         })
         .catch(err => {
             console.log(`Ошибка: ${err}`);
@@ -93,8 +123,10 @@ addButton.addEventListener('click', () => {
     addCardPopup.open();
     cardValidator.resetValidation();
 });
+
 const confirmationPopup = new PopupWithConfirmation('.popup_type_confirm');
 confirmationPopup.setEventListeners();
+
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
     headers: {
@@ -103,55 +135,14 @@ const api = new Api({
     }
 });
 
-// placesSection.renderInitialCards();
-
-// api.getInitialCards()
-//     .then(cards => {
-//         const placesSection = new Section(
-//             {
-//                 items: cards,
-//                 renderer: card => {
-//                     const cardElement = new Card(
-//                         card.name,
-//                         card.link,
-//                         card.likes.length,
-//                         '#placeTemplate',
-//                         (name, link) => {
-//                             imagePopup.open(name, link);
-//                         },
-//                         () => {
-//                             confirmationPopup.open();
-//                         }
-//                     );
-//                     return cardElement.generateCard();
-//                 }
-//             },
-//             '.places'
-//         );
-//         placesSection.renderInitialCards();
-//     })
-//     .catch(err => {
-//         console.log(`Ошибка: ${err}`);
-//     });
-// api.getUserInfo()
-//     .then(data => {
-//         profileInfo.setUserInfo({
-//             name: data.name,
-//             description: data.about,
-//             link: data.avatar
-//         });
-//     })
-//     .catch(err => {
-//         console.log(`Ошибка: ${err}`);
-//     });
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then(([userData, initialCards]) => {
+    .then(([userData, cards]) => {
         profileInfo.setUserInfo({
             name: userData.name,
             description: userData.about,
             link: userData.avatar
         });
-        placesSection.renderInitialCards(initialCards);
+        placesSection.renderInitialCards(cards, userData._id);
     })
     .catch(err => {
         console.log(`Ошибка: ${err}`);
