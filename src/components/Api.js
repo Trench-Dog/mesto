@@ -4,7 +4,7 @@ export default class Api {
         this._headers = options.headers;
     }
     async getInitialCards() {
-        const initialCards = await fetch(`${this._baseUrl}/cards`, {
+        let initialCards = await fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: this._headers
         }).then(res => {
@@ -13,7 +13,7 @@ export default class Api {
             }
             return res.json();
         });
-        return initialCards;
+        return await initialCards;
     }
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {

@@ -29,6 +29,21 @@ const profileInfo = new UserInfo({
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar'
 });
+const placesSection = new Section(card => {
+    const cardElement = new Card(
+        card.name,
+        card.link,
+        card.likes.length,
+        '#placeTemplate',
+        (name, link) => {
+            imagePopup.open(name, link);
+        },
+        () => {
+            confirmationPopup.open();
+        }
+    );
+    return cardElement.generateCard();
+}, '.places');
 const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();
 const profilePopup = new PopupWithForm('.popup_type_profile', profileFormSubmit);
@@ -87,41 +102,56 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 });
-api.getInitialCards()
-    .then(cards => {
-        const placesSection = new Section(
-            {
-                items: cards,
-                renderer: card => {
-                    const cardElement = new Card(
-                        card.name,
-                        card.link,
-                        card.likes.length,
-                        '#placeTemplate',
-                        (name, link) => {
-                            imagePopup.open(name, link);
-                        },
-                        () => {
-                            confirmationPopup.open();
-                        }
-                    );
-                    return cardElement.generateCard();
-                }
-            },
-            '.places'
-        );
-        placesSection.renderInitialCards();
-    })
-    .catch(err => {
-        console.log(`Ошибка: ${err}`);
-    });
-api.getUserInfo()
-    .then(data => {
+
+// placesSection.renderInitialCards();
+
+// api.getInitialCards()
+//     .then(cards => {
+//         const placesSection = new Section(
+//             {
+//                 items: cards,
+//                 renderer: card => {
+//                     const cardElement = new Card(
+//                         card.name,
+//                         card.link,
+//                         card.likes.length,
+//                         '#placeTemplate',
+//                         (name, link) => {
+//                             imagePopup.open(name, link);
+//                         },
+//                         () => {
+//                             confirmationPopup.open();
+//                         }
+//                     );
+//                     return cardElement.generateCard();
+//                 }
+//             },
+//             '.places'
+//         );
+//         placesSection.renderInitialCards();
+//     })
+//     .catch(err => {
+//         console.log(`Ошибка: ${err}`);
+//     });
+// api.getUserInfo()
+//     .then(data => {
+//         profileInfo.setUserInfo({
+//             name: data.name,
+//             description: data.about,
+//             link: data.avatar
+//         });
+//     })
+//     .catch(err => {
+//         console.log(`Ошибка: ${err}`);
+//     });
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, initialCards]) => {
         profileInfo.setUserInfo({
-            name: data.name,
-            description: data.about,
-            link: data.avatar
+            name: userData.name,
+            description: userData.about,
+            link: userData.avatar
         });
+        placesSection.renderInitialCards(initialCards);
     })
     .catch(err => {
         console.log(`Ошибка: ${err}`);
