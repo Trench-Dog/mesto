@@ -29,7 +29,8 @@ const profileInfo = new UserInfo({
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar'
 });
-const placesSection = new Section((card, likes, isOwner) => {
+const placesSection = new Section(createCard, '.places');
+function createCard(card, likes, userId, ownerId) {
     const cardElement = new Card(
         card.name,
         card.link,
@@ -37,19 +38,27 @@ const placesSection = new Section((card, likes, isOwner) => {
         (name, link) => {
             imagePopup.open(name, link);
         },
-        (deleteButton, cardId) => {
-            const deleteCard = api.deleteCard(cardId).catch(err => {
-                console.log(`Ошибка: ${err}`);
-            });
-            confirmationPopup.open(deleteButton, deleteCard);
+        cardId => {
+            function deleteCard(id) {
+                api.deleteCard(id)
+                    .then(() => {
+                        cardElement.deleteCard();
+                        confirmationPopup.close();
+                    })
+                    .catch(err => {
+                        console.log(`Ошибка: ${err}`);
+                    });
+            }
+            confirmationPopup.open(cardId, deleteCard);
         },
         likes,
-        isOwner,
+        userId,
+        ownerId,
         card._id,
         cardId => {
             api.putLike(cardId)
                 .then(res => {
-                    cardElement._likeCounter.textContent = res.likes.length;
+                    cardElement.setLikes(res.likes.length);
                 })
                 .catch(err => {
                     console.log(`Ошибка: ${err}`);
@@ -58,16 +67,15 @@ const placesSection = new Section((card, likes, isOwner) => {
         cardId => {
             api.deleteLike(cardId)
                 .then(res => {
-                    cardElement._likeCounter.textContent = res.likes.length;
+                    cardElement.setLikes(res.likes.length);
                 })
                 .catch(err => {
                     console.log(`Ошибка: ${err}`);
                 });
         }
     );
-
     return cardElement.generateCard();
-}, '.places');
+}
 const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();
 const profilePopup = new PopupWithForm('.popup_type_profile', profileFormSubmit);
@@ -80,8 +88,14 @@ function profileFormSubmit(inputValues) {
                 link: editedData.avatar
             });
         })
+        .then(() => {
+            profilePopup.close();
+        })
         .catch(err => {
             console.log(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            profilePopup.renderLoading(false);
         });
 }
 profilePopup.setEventListeners();
@@ -93,20 +107,40 @@ function addCardFormSubmit(inputValues) {
                 cardData.name,
                 cardData.link,
                 cardData.likes.length,
-                true,
+                cardData.owner._id,
                 cardData._id
             );
         })
+        .then(() => {
+            addCardPopup.close();
+        })
         .catch(err => {
             console.log(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            addCardPopup.renderLoading(false);
         });
 }
 addCardPopup.setEventListeners();
 const avatarPopup = new PopupWithForm('.popup_type_avatar', changeAvatarSubmit);
 function changeAvatarSubmit(inputValues) {
-    api.changeAvatar(inputValues.avatar).then(res => {
-        profileImage.src = res.avatar;
-    });
+    api.changeAvatar(inputValues.avatar)
+        .then(profileData => {
+            profileInfo.setUserInfo({
+                name: profileData.name,
+                description: profileData.about,
+                link: profileData.avatar
+            });
+        })
+        .then(() => {
+            avatarPopup.close();
+        })
+        .catch(err => {
+            console.log(`Ошибка: ${err}`);
+        })
+        .finally(() => {
+            avatarPopup.renderLoading(false);
+        });
 }
 avatarPopup.setEventListeners();
 profileImage.addEventListener('click', () => {

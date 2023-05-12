@@ -8,10 +8,7 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     getUserInfo() {
@@ -19,10 +16,7 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     editUserInfo(name, description) {
@@ -34,10 +28,7 @@ export default class Api {
                 about: description
             })
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     sendNewCard(name, link) {
@@ -49,10 +40,7 @@ export default class Api {
                 link: link
             })
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     putLike(cardId) {
@@ -60,10 +48,7 @@ export default class Api {
             method: 'PUT',
             headers: this._headers
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     deleteLike(cardId) {
@@ -71,10 +56,7 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     changeAvatar(link) {
@@ -85,10 +67,7 @@ export default class Api {
                 avatar: link
             })
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     deleteCard(cardId) {
@@ -96,10 +75,7 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers
         }).then(res => {
-            if (!res.ok) {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-            return res.json();
+            return this._getResponseData(res);
         });
     }
     _getResponseData(res) {

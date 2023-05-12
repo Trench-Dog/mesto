@@ -6,7 +6,8 @@ export default class Card {
         handleCardClick,
         openConfirmationPopup,
         likeNumber,
-        isOwner,
+        userId,
+        ownerId,
         cardId,
         putLike,
         removeLike
@@ -18,7 +19,8 @@ export default class Card {
         this._handleCardClick = handleCardClick;
         this._openConfirmationPopup = openConfirmationPopup;
         this._likeNumber = likeNumber;
-        this._isOwner = isOwner;
+        this._userId = userId;
+        this._ownerId = ownerId;
         this._cardId = cardId;
         this._putLike = putLike;
         this._removeLike = removeLike;
@@ -34,7 +36,7 @@ export default class Card {
         this._likeButton = this._card.querySelector('.place__button');
         this._likeCounter = this._card.querySelector('.place__like-counter');
         this._deleteButton = this._card.querySelector('.place__delete-button');
-        if (!this._isOwner) {
+        if (this._userId !== this._ownerId) {
             this._deleteButton.remove();
         }
         this._image.setAttribute('src', this._link);
@@ -64,7 +66,11 @@ export default class Card {
             this._toggleLike();
         });
         this._deleteButton.addEventListener('click', () => {
-            this._openConfirmationPopup(this._deleteButton, this._cardId);
+            this._openConfirmationPopup(this._cardId);
         });
+    }
+    deleteCard() {
+        this._cardElement = this._deleteButton.closest('.place');
+        this._cardElement.remove();
     }
 }

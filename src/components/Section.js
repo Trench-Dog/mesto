@@ -5,24 +5,20 @@ export default class Section {
     }
     renderInitialCards(items, userId) {
         items.forEach(item => {
-            let isOwner = () => {
-                if (userId === item.owner._id) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
-            this._itemSection.append(this._renderer(item, item.likes.length, isOwner()));
+            this._userId = userId;
+            this._itemSection.append(
+                this._renderer(item, item.likes.length, this._userId, item.owner._id)
+            );
         });
     }
-    renderItem(name, link, likes, isOwner, id) {
+    renderItem(name, link, likes, ownerId, cardId) {
         const item = {
             name: name,
             link: link,
             alt: name,
-            _id: id
+            _id: cardId
         };
-        this.addItem(this._renderer(item, likes, isOwner));
+        this.addItem(this._renderer(item, likes, this._userId, ownerId));
     }
     addItem(card) {
         this._itemSection.prepend(card);
