@@ -15,6 +15,7 @@ export default class FormValidator {
         const hasInvalidInput = this._formInputs.some(input => {
             return !input.validity.valid;
         });
+        console.log(hasInvalidInput);
         if (hasInvalidInput) {
             this._blockSubmitButton();
         } else {

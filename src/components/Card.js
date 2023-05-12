@@ -52,11 +52,12 @@ export default class Card {
     _toggleLike() {
         if (this._likeButton.classList.contains('place__button_active')) {
             this._removeLike(this._cardId);
-            this._likeButton.classList.remove('place__button_active');
         } else {
             this._putLike(this._cardId);
-            this._likeButton.classList.add('place__button_active');
         }
+    }
+    toggleButtonState() {
+        this._likeButton.classList.toggle('place__button_active');
     }
     _setEventListeners() {
         this._image.addEventListener('click', () => {

@@ -59,6 +59,7 @@ function createCard(card, likes, userId, ownerId) {
             api.putLike(cardId)
                 .then(res => {
                     cardElement.setLikes(res.likes.length);
+                    cardElement.toggleButtonState();
                 })
                 .catch(err => {
                     console.log(`Ошибка: ${err}`);
@@ -68,6 +69,7 @@ function createCard(card, likes, userId, ownerId) {
             api.deleteLike(cardId)
                 .then(res => {
                     cardElement.setLikes(res.likes.length);
+                    cardElement.toggleButtonState();
                 })
                 .catch(err => {
                     console.log(`Ошибка: ${err}`);
@@ -145,6 +147,7 @@ function changeAvatarSubmit(inputValues) {
 avatarPopup.setEventListeners();
 profileImage.addEventListener('click', () => {
     avatarPopup.open();
+    avatarValidator.resetValidation();
 });
 editButton.addEventListener('click', () => {
     profilePopup.open();

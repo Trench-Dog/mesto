@@ -45,6 +45,7 @@ const addButton = document.querySelector('.profile__add-button');
 const profileForm = document.forms[0];
 const addCardForm = document.forms[1];
 const changeAvatarForm = document.forms[3];
+console.log(changeAvatarForm);
 const formConfig = {
     inputSelector: '.popup__data',
     submitButtonSelector: '.popup__save-button',
