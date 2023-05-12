@@ -3,8 +3,8 @@ export default class Api {
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
     }
-    async getInitialCards() {
-        let initialCards = await fetch(`${this._baseUrl}/cards`, {
+    getInitialCards() {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: this._headers
         }).then(res => {
@@ -13,7 +13,6 @@ export default class Api {
             }
             return res.json();
         });
-        return await initialCards;
     }
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -102,5 +101,11 @@ export default class Api {
             }
             return res.json();
         });
+    }
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+        return res.json();
     }
 }
